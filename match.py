@@ -2,7 +2,7 @@
 """
 Created on Mon Nov 16 09:28:59 2020
 
-@author: hoyla
+
 """
 
 import cv2
