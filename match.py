@@ -9,13 +9,18 @@ import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 
-img = cv2.imread('Image_10.jpg',0)
+#10,40,57,67,102,146
+
+img = cv2.imread('Image_10.jpg')
+
 img2 = img.copy()
 ##template = cv2.imread('template102.png',0)
 
-#gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-r = 155
+
+#box size
+r = 154
 thk = 8
 
 tsz = 2*r + 2 * thk
@@ -23,17 +28,20 @@ tsz = 2*r + 2 * thk
 template = np.zeros((tsz,tsz,1), np.uint8)
 
 cv2.circle(template,(r+thk,r+thk),r,255,thk)
-th3 = cv2.threshold(img,22,255,cv2.THRESH_BINARY)[1]
+#threshold
+th3 = cv2.threshold(gray,22,255,cv2.THRESH_BINARY)[1]
 
 w = tsz
 h = tsz
 
 
-methods = ['cv2.TM_CCOEFF', 'cv2.TM_CCOEFF_NORMED', 'cv2.TM_CCORR',
-            'cv2.TM_CCORR_NORMED', 'cv2.TM_SQDIFF', 'cv2.TM_SQDIFF_NORMED']
+methods = ['cv2.TM_CCORR','cv2.TM_CCORR_NORMED']
+
+#methods = ['cv2.TM_CCOEFF', 'cv2.TM_CCOEFF_NORMED', 'cv2.TM_CCORR',
+ #          'cv2.TM_CCORR_NORMED', 'cv2.TM_SQDIFF', 'cv2.TM_SQDIFF_NORMED']
 
 for meth in methods:
-    img = img2.copy()
+   
     method = eval(meth)
 
     # Apply template Matching
@@ -59,7 +67,7 @@ for meth in methods:
     plt.suptitle(meth)
 
     plt.show()
-
+    print(res)
 """
 
 res = cv2.matchTemplate(img,tmpImage,cv2.TM_CCOEFF_NORMED)
